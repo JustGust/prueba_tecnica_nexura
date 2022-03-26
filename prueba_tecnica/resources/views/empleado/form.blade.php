@@ -50,7 +50,7 @@
     <div class="col-sm-10">
 
         <select class="form-select" aria-label="Default select example" name="area_id" id="area_id">
-
+        <option value="{{ isset($empleado->area_id)?$empleado->area_id:old('area_id') }}">{{ isset($empleado->area_id)?$empleado->area_id:old('area_id') }}</option>
             @foreach($dataAreas as $area)
             <option value="{{$area->id}}">{{$area->nombre}}</option>
             @endforeach
