@@ -10,6 +10,13 @@
                 <a href="{{ route('empleado.create') }}" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i><span class="ms-3">Crear</span></a>
             </div>
 
+            @if(Session::has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ Session::get('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
             <table class="table mt-3">
                 <thead>
                     <tr>
@@ -44,15 +51,15 @@
                         @endif
 
                         <td>
-                        <a  class="btn btn-outline-primary" href="{{ url('/empleado/'.$empleado->id.'/edit') }}"><i class="fa-solid fa-user-pen"></i></i></a>
+                            <a class="btn btn-outline-primary" href="{{ url('/empleado/'.$empleado->id.'/edit') }}"><i class="fa-solid fa-user-pen"></i></i></a>
                         </td>
-                       
+
                         <td>
-                        <form action="{{ url('/empleado/'.$empleado->id) }}" method="post">
-                            @csrf
-                            {{ method_field('DELETE') }}
-                            <button type="submit" onclick="return confirm('¿Deseas eliminar este registro?')" class="butt btn btn-outline-danger"><i class="fa-solid fa-user-xmark"></i></i></button>
-                        </form>
+                            <form action="{{ url('/empleado/'.$empleado->id) }}" method="post">
+                                @csrf
+                                {{ method_field('DELETE') }}
+                                <button type="submit" onclick="return confirm('¿Deseas eliminar este registro?')" class="butt btn btn-outline-danger"><i class="fa-solid fa-user-xmark"></i></i></button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

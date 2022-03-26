@@ -85,7 +85,7 @@ class EmpleadoController extends Controller
 
         Empleado_rol::insert(['empleado_id'=>$trabId, 'rol_id'=>$roleId]);//inserto los datos en la tabla empleado_rols
 
-        return redirect('empleado')->with('message', 'Producto registado con exito!');
+        return redirect('empleado')->with('message', 'Empleado registado con exito!');
 
     }
 
@@ -154,7 +154,7 @@ class EmpleadoController extends Controller
    
         Empleado::where('id', '=', $id)->update($datoEmpleado);
 
-       return redirect("empleado")->with('message', 'Producto actualizado con exito!'); 
+       return redirect("empleado")->with('message', 'Empleado actualizado con exito!'); 
 
   
     }
@@ -169,7 +169,7 @@ class EmpleadoController extends Controller
     {
         Empleado::destroy($id);//elimino el registro que contenga el id enviado
 
-        return redirect('empleado')->with('message', 'Producto eliminado con exito!');
+        return redirect('empleado')->with('message', 'Empleado eliminado con exito!');
 
     }
 }
