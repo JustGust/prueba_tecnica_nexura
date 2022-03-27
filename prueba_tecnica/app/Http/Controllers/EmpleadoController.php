@@ -18,8 +18,9 @@ class EmpleadoController extends Controller
     public function index()
     {
 
-        $datosEmpleados['empleados'] = Empleado::select("empleados.id","empleados.nombre", "empleados.email", "empleados.sexo", "areas.nombre as area_nombre", "empleados.boletin")
+        $datosEmpleados['empleados'] = Empleado::select("empleados.id","empleados.nombre", "empleados.email", "empleados.sexo", "areas.nombre as area_nombre", "empleados.boletin", "empleado_rols.rol_id as role_id")
         ->join("areas", "areas.id", "=", "empleados.area_id")
+        ->join("empleado_rols", "empleado_rols.empleado_id", "=", "empleados.id")
         ->orderBy("empleados.id", "DESC") 
         ->paginate(5);
 
@@ -110,7 +111,11 @@ class EmpleadoController extends Controller
     {
         $datoAreas['areas'] = Areas::all();//cargo todos los datos de las areas
         $datoRoles['roles'] = Roles::all();//cargo todos los datos de los roles
-        $empleado = Empleado::findOrFail($id);//cargo los datos del empleado con el mismo id
+        $empleado = Empleado::select("id", "nombre","email", "sexo", "area_id", "descripcion", "boletin", "empleado_rols.rol_id as role_id")
+        ->join("empleado_rols", "empleado_rols.empleado_id", "=", "empleados.id")
+        -> findOrFail($id);//cargo los datos del empleado con el mismo i
+
+      
 
         return view('empleado.edit', compact('empleado'))->with($datoAreas)->with($datoRoles);
     }
@@ -149,10 +154,12 @@ class EmpleadoController extends Controller
      
 
         $datoEmpleado = request()->except(['_token', '_method', 'role_id']);
-
-
    
         Empleado::where('id', '=', $id)->update($datoEmpleado);
+
+
+        $roleId = request('role_id');
+        Empleado_rol::where('empleado_id', '=', $id)->update(['rol_id'=>$roleId]);
 
        return redirect("empleado")->with('message', 'Empleado actualizado con exito!'); 
 
