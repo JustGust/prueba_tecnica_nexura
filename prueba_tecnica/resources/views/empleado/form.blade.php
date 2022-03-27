@@ -57,6 +57,9 @@
     <div class="col-sm-10">
 
         <select class="form-select" aria-label="Default select example" name="area_id" id="area_id">
+            @if(!isset($empleado))
+            <option value="">Seleccione un area</option>
+            @endif
             <option value="{{ isset($empleado->area_id)?$empleado->area_id:old('area_id') }}">{{ isset($empleado->area_id)?$empleado->area_id:old('area_id') }}</option>
             @foreach($dataAreas as $area)
             <option value="{{$area->id}}">{{$area->nombre}}</option>
@@ -97,7 +100,6 @@
             <input class="form-check-input" checked type="checkbox" value="{{$role->id}}" id="role_id" name="role_id">
            @else
            <input class="form-check-input" type="checkbox" value="{{$role->id}}" id="role_id" name="role_id">
-
             @endif
             <label class="form-check-label" for="flexCheckDefault">
                 {{ $role->nombre }}
