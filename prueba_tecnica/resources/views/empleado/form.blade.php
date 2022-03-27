@@ -31,13 +31,21 @@
     <div class="col-sm-10">
     
         <div class="form-check">
+            @if($empleado->sexo == "M")
+            <input class="form-check-input" checked type="radio" name="sexo" id="sexo" value="M">
+            @else
             <input class="form-check-input" type="radio" name="sexo" id="sexo" value="M">
+            @endif
             Masculino
             </label>
         </div>
        
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="sexo" value="F" id="sexo">
+            @if($empleado->sexo == "F")
+            <input class="form-check-input" checked type="radio" name="sexo" id="sexo" value="F">
+            @else
+            <input class="form-check-input" type="radio" name="sexo" id="sexo" value="F">
+            @endif
             Femenino
             </label>
         </div>
